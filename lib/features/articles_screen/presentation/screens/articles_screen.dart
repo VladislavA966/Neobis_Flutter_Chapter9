@@ -1,10 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_colors/app_colors.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_fonts.dart/app_fonts.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_images/app_images.dart';
 import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/bloc/articles_bloc.dart';
-import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/screens/article_info_screen.dart';
+import 'package:neobis_flutter_chapter9/features/concrete_article_screen/article_info_screen.dart';
 import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/screens/articles_filter_screen.dart';
 import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/widgets/article_container.dart';
 import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/widgets/common_text_field.dart';
@@ -22,6 +24,25 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
   void initState() {
     super.initState();
     BlocProvider.of<ArticlesBloc>(context).add(GetAllArticlesEvent());
+  }
+
+  List<Color> myColors = [
+    AppColors.aqua,
+    AppColors.blush,
+    AppColors.burgundy,
+    AppColors.darkRed,
+    AppColors.lavender,
+    AppColors.lightBlue,
+    AppColors.lightGreen,
+    AppColors.lightPink,
+    AppColors.lime,
+    AppColors.orange,
+    AppColors.paleGreen,
+    AppColors.peach
+  ];
+  Color getRandomColor() {
+    Random random = Random();
+    return myColors[random.nextInt(myColors.length)];
   }
 
   @override
@@ -44,10 +65,6 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      leading: IconButton(
-        onPressed: () => Navigator.pop(context),
-        icon: const Icon(Icons.arrow_back),
-      ),
       title: Stack(
         children: [
           Image.asset(AppImages.appBarTitle),
@@ -100,6 +117,7 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
         return Padding(
           padding: const EdgeInsets.only(bottom: 16),
           child: ArticleContainer(
+            color: getRandomColor(),
             title: state.model.result[index].title,
             timeToRead: state.model.result[index].timeToRead,
             onTap: () => Navigator.push(

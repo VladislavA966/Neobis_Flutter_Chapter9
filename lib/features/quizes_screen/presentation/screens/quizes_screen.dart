@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_colors/app_colors.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_fonts.dart/app_fonts.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_images/app_images.dart';
-import 'package:neobis_flutter_chapter9/features/quizes_screen/presentation/screens/home_quizes_screen.dart';
+import 'package:neobis_flutter_chapter9/features/quize_welcome_screen.dart/presentation/home_quizes_screen.dart';
+import 'package:neobis_flutter_chapter9/features/quizes_screen/presentation/bloc/all_quizes_bloc.dart';
 import 'package:neobis_flutter_chapter9/features/quizes_screen/presentation/widgets/quize_button.dart';
 import 'package:neobis_flutter_chapter9/features/quizes_screen/presentation/widgets/quize_container.dart';
 
@@ -15,20 +17,13 @@ class QuizesScreen extends StatefulWidget {
 }
 
 class _QuizesScreenState extends State<QuizesScreen> {
-  final List<String> imgList = [
-    AppImages.philosofy,
-    AppImages.history,
-    AppImages.philosofy,
-    AppImages.history,
-    AppImages.philosofy,
-    AppImages.history,
-    AppImages.philosofy,
-    AppImages.history,
-    AppImages.philosofy,
-    AppImages.history,
-    AppImages.philosofy,
-    AppImages.history,
-  ];
+  @override
+  void initState() {
+    BlocProvider.of<AllQuizesBloc>(context).add(
+      GetAllQuizesEvent(),
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,16 +48,25 @@ class _QuizesScreenState extends State<QuizesScreen> {
   }
 
   Widget _buildBody() {
-    return Column(
-      children: [
-        _buildCarouselSlider(),
-        const SizedBox(height: 44),
-        _buildStartQuizButton(),
-      ],
+    return BlocBuilder<AllQuizesBloc, AllQuizesState>(
+      builder: (context, state) {
+        if (state is AllQuizesLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is AllQuizesLoaded) {
+          return Column(
+            children: [
+              _buildCarouselSlider(state),
+              const SizedBox(height: 44),
+              _buildStartQuizButton(state),
+            ],
+          );
+        }
+        return const SizedBox();
+      },
     );
   }
 
-  Widget _buildCarouselSlider() {
+  Widget _buildCarouselSlider(AllQuizesLoaded state) {
     return Expanded(
       child: CarouselSlider(
         options: CarouselOptions(
@@ -71,12 +75,18 @@ class _QuizesScreenState extends State<QuizesScreen> {
           enableInfiniteScroll: false,
           autoPlay: false,
         ),
-        items: imgList.map((item) => QuizContainer(image: item)).toList(),
+        items: state.model.quizes
+            .map((item) => QuizContainer(
+                  image: item.quizCover,
+                  title: item.title,
+                  totalQuestions: item.totalQuestions.toString(),
+                ))
+            .toList(),
       ),
     );
   }
 
-  Widget _buildStartQuizButton() {
+  Widget _buildStartQuizButton(AllQuizesLoaded state) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: QuizElevatedButton(
@@ -84,7 +94,8 @@ class _QuizesScreenState extends State<QuizesScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const HomeQuizeScreen(),
+              builder: (context) =>
+                  HomeQuizeScreen(id: state.model.quizes.first.id),
             ),
           );
         },

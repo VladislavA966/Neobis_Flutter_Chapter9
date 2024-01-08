@@ -10,7 +10,7 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
   final GetAllArticlesUseCase useCase;
   ArticlesBloc({required this.useCase}) : super(ArticlesInitial()) {
     getAllArticlesEvent();
-    getConcreteArticleEvent();
+    
   }
 
   void getAllArticlesEvent() {
@@ -23,6 +23,7 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
             ArticlesLoaded(model: model),
           );
         } catch (e) {
+          print(e.toString());
           emit(
             ArticlesError(
               errorText: e.toString(),
@@ -33,25 +34,5 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
     );
   }
 
-  void getConcreteArticleEvent() {
-    on<GetConcreteArticleEvent>(
-      (event, emit) async {
-        emit(
-          ArticlesLoading(),
-        );
-        try {
-          final model = await useCase.getConcreteArticle(event.id);
-          emit(
-            ConcreteArticleLoaded(model: model),
-          );
-        } catch (e) {
-          emit(
-            ArticlesError(
-              errorText: e.toString(),
-            ),
-          );
-        }
-      },
-    );
-  }
+ 
 }

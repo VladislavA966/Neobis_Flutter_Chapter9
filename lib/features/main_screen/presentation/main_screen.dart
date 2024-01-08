@@ -59,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
             padding: const EdgeInsets.only(right: 16),
             child: ArticlesContainer(
               onTap: () {
-                // Navigator.push...
+               
               },
             ),
           );

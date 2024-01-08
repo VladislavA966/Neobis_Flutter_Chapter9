@@ -13,11 +13,7 @@ final class ArticlesLoaded extends ArticlesState {
   ArticlesLoaded({required this.model});
 }
 
-final class ConcreteArticleLoaded extends ArticlesState {
-  final ArticlesEntity model;
 
-  ConcreteArticleLoaded({required this.model});
-}
 
 final class ArticlesError extends ArticlesState {
   final String errorText;

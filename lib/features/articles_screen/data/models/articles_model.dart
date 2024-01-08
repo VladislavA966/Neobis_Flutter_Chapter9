@@ -4,28 +4,29 @@ class ArticlesModel {
   int? id;
   String? title;
   String? content;
-  int? timeToRead;
-  String? dateCreated;
   bool? isActive;
-  int? category;
+  int? timeToRead;
+  String? articleCover;
+  Category? category;
 
   ArticlesModel(
       {this.id,
       this.title,
       this.content,
-      this.timeToRead,
-      this.dateCreated,
       this.isActive,
+      this.timeToRead,
+      this.articleCover,
       this.category});
 
   ArticlesModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     content = json['content'];
-    timeToRead = json['time_to_read'];
-    dateCreated = json['date_created'];
     isActive = json['is_active'];
-    category = json['category'];
+    timeToRead = json['time_to_read'];
+    articleCover = json['article_cover'];
+    category =
+        json['category'] != null ? Category.fromJson(json['category']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -33,10 +34,12 @@ class ArticlesModel {
     data['id'] = id;
     data['title'] = title;
     data['content'] = content;
-    data['time_to_read'] = timeToRead;
-    data['date_created'] = dateCreated;
     data['is_active'] = isActive;
-    data['category'] = category;
+    data['time_to_read'] = timeToRead;
+    data['article_cover'] = articleCover;
+    if (category != null) {
+      data['category'] = category!.toJson();
+    }
     return data;
   }
 
@@ -45,11 +48,26 @@ class ArticlesModel {
       id: id ?? 0,
       title: title ?? '',
       content: content ?? '',
-      timeToRead: timeToRead ?? 0,
-      dateCreated: dateCreated ?? '',
       isActive: isActive ?? false,
-      category: category ?? 0,
+      timeToRead: timeToRead ?? 0,
+      articleCover: articleCover ?? '',
     );
+  }
+}
+
+class Category {
+  String? name;
+
+  Category({this.name});
+
+  Category.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    return data;
   }
 }
 

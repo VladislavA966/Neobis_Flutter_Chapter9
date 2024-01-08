@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_colors/app_colors.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_fonts.dart/app_fonts.dart';
-import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/bloc/articles_bloc.dart';
 import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/screens/articles_screen.dart';
+import 'package:neobis_flutter_chapter9/features/concrete_article_screen/bloc/concrete_article_bloc.dart';
 
 class ArticleInfoScreen extends StatefulWidget {
   final int id;
@@ -17,8 +17,9 @@ class _ArticleInfoScreenState extends State<ArticleInfoScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<ArticlesBloc>(context)
-        .add(GetConcreteArticleEvent(id: widget.id));
+    BlocProvider.of<ConcreteArticleBloc>(context).add(
+      GetConcreteArticleEvent(id: widget.id),
+    );
   }
 
   @override
@@ -43,7 +44,7 @@ class _ArticleInfoScreenState extends State<ArticleInfoScreen> {
   }
 
   Widget _buildArticleContent() {
-    return BlocBuilder<ArticlesBloc, ArticlesState>(
+    return BlocBuilder<ConcreteArticleBloc, ConcreteArticleState>(
       builder: (context, state) {
         if (state is ConcreteArticleLoaded) {
           return _buildArticleDetails(state);
