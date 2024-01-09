@@ -7,13 +7,15 @@ class QuizesRepoImpl implements QuizesRepo {
 
   QuizesRepoImpl({required this.remote});
   @override
-  Future<AllQuizesEntity> getAllQuizesrepo() async {
+  Future<QuizesEntity> getAllQuizesrepo() async {
     final dataSourceList = await remote.getAllQuizesRemote();
-    final quizesEntities = dataSourceList.quizes
-        .map(
-          (quizeModel) => quizeModel.toEntity(),
-        )
+    final quizesEntities = dataSourceList.results!
+        .map((quizeModel) => quizeModel.toEntity())
         .toList();
-    return AllQuizesEntity(quizes: quizesEntities);
+    return QuizesEntity(
+        count: dataSourceList.count ?? 0,
+        next: dataSourceList.next ?? '',
+        previous: dataSourceList.previous ?? '',
+        results: quizesEntities);
   }
 }

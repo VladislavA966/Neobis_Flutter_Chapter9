@@ -6,12 +6,14 @@ class QuizContainer extends StatelessWidget {
   final String image;
   final String title;
   final String totalQuestions;
+  final Color color;
 
   const QuizContainer({
     super.key,
     required this.image,
     required this.title,
     required this.totalQuestions,
+    required this.color,
   });
 
   @override
@@ -19,13 +21,13 @@ class QuizContainer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: AppColors.paleGreen,
-        boxShadow: const [
+        color: color,
+        boxShadow:  [
           BoxShadow(
-            color: AppColors.paleGreen,
+            color: color,
             blurRadius: 24,
             spreadRadius: 8,
-            offset: Offset(
+            offset: const Offset(
               0,
               0,
             ),
@@ -36,7 +38,11 @@ class QuizContainer extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(image),
+            Image.network(
+              image,
+              height: 250,
+              width: 250,
+            ),
             const SizedBox(
               height: 52,
             ),

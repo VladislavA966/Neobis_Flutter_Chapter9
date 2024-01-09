@@ -5,7 +5,7 @@ class UserQuizeUseCase {
   final UserQuizeRepo repo;
 
   UserQuizeUseCase({required this.repo});
-  Future<UserQuizeEntity> call(int id) async {
+  Future<UserQuizEntityList> call(int id) async {
     return await repo.getUserQuizeRepo(id);
   }
 }

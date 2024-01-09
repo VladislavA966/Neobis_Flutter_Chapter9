@@ -1,37 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_colors/app_colors.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_fonts.dart/app_fonts.dart';
-import 'package:neobis_flutter_chapter9/core/recources/app_images/app_images.dart';
 
 class QuizCard extends StatelessWidget {
-  const QuizCard({super.key});
+  final VoidCallback onTap;
+  final String image;
+  final String title;
+  final int totalQuestions;
+  final Color color;
+  const QuizCard(
+      {super.key,
+      required this.image,
+      required this.title,
+      required this.totalQuestions,
+      required this.onTap, required this.color});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.peach,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        children: [
-          Image.asset(
-            AppImages.quizImage,
-          ),
-          const SizedBox(height: 28),
-          Text(
-            'История',
-            style: AppFonts.s24w800.copyWith(
-              color: AppColors.black,
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          children: [
+            Image.network(
+              image,
+              height: 150,
+              width: 150,
             ),
-          ),
-          Text(
-            '10 вопросов',
-            style: AppFonts.s12w600.copyWith(
-              color: AppColors.black,
+            const SizedBox(height: 28),
+            Text(
+              title,
+              softWrap: true,
+              overflow: TextOverflow.ellipsis,
+              style: AppFonts.s24w800.copyWith(
+                color: AppColors.black,
+              ),
             ),
-          ),
-        ],
+            Text(
+              '$totalQuestions вопросов',
+              style: AppFonts.s12w600.copyWith(
+                color: AppColors.black,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

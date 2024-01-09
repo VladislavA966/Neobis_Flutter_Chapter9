@@ -1,21 +1,33 @@
 class QuizesEntity {
+  final int count;
+  final String next;
+  final String previous;
+  final List<ResultsQuizeEntity> results;
+
+  QuizesEntity(
+      {required this.count,
+      required this.next,
+      required this.previous,
+      required this.results});
+}
+
+class ResultsQuizeEntity {
   final int id;
   final String title;
   final String quizCover;
   final int totalQuestions;
-  final int category;
+  final CategoryQuizeEntity? category;
 
-  QuizesEntity(
+  ResultsQuizeEntity(
       {required this.id,
       required this.title,
       required this.quizCover,
       required this.totalQuestions,
-      required this.category});
+      this.category});
 }
 
-class AllQuizesEntity {
-  final List<QuizesEntity> quizes;
+class CategoryQuizeEntity {
+  final String name;
 
-  AllQuizesEntity({required this.quizes});
+  CategoryQuizeEntity({required this.name});
 }
-

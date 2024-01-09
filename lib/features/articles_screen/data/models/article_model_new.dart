@@ -1,6 +1,51 @@
 import 'package:neobis_flutter_chapter9/features/articles_screen/domain/entity/all_articles_entity.dart';
 
 class ArticlesModel {
+  int? count;
+  String? next;
+  String? previous;
+  List<Results>? results;
+
+  ArticlesModel({this.count, this.next, this.previous, this.results});
+
+  ArticlesModel.fromJson(Map<String, dynamic> json) {
+    count = json['count'];
+    next = json['next'];
+    previous = json['previous'];
+    if (json['results'] != null) {
+      results = <Results>[];
+      json['results'].forEach((v) {
+        results!.add(Results.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['count'] = count;
+    data['next'] = next;
+    data['previous'] = previous;
+    if (results != null) {
+      data['results'] = results!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+
+  ArticlesEntity toEntity() {
+    List<ResultsEntity> resultsEntities = results != null
+        ? results!.map((result) => result.toEntity()).toList()
+        : [];
+
+    return ArticlesEntity(
+      count: count ?? 0,
+      next: next ?? '',
+      previous: previous ?? '',
+      results: resultsEntities,
+    );
+  }
+}
+
+class Results {
   int? id;
   String? title;
   String? content;
@@ -9,7 +54,7 @@ class ArticlesModel {
   String? articleCover;
   Category? category;
 
-  ArticlesModel(
+  Results(
       {this.id,
       this.title,
       this.content,
@@ -18,7 +63,7 @@ class ArticlesModel {
       this.articleCover,
       this.category});
 
-  ArticlesModel.fromJson(Map<String, dynamic> json) {
+  Results.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     content = json['content'];
@@ -43,14 +88,15 @@ class ArticlesModel {
     return data;
   }
 
-  ArticlesEntity toEntity() {
-    return ArticlesEntity(
+  ResultsEntity toEntity() {
+    return ResultsEntity(
       id: id ?? 0,
       title: title ?? '',
       content: content ?? '',
       isActive: isActive ?? false,
       timeToRead: timeToRead ?? 0,
       articleCover: articleCover ?? '',
+      category: category?.toEntity() ?? CategoryEntity(name: ''),
     );
   }
 }
@@ -69,26 +115,8 @@ class Category {
     data['name'] = name;
     return data;
   }
-}
 
-class ArticlesModelList {
-  final List<ArticlesModel> articles;
-
-  ArticlesModelList({required this.articles});
-
-  factory ArticlesModelList.fromJson(List<dynamic> parsedJson) {
-    List<ArticlesModel> articles =
-        parsedJson.map((json) => ArticlesModel.fromJson(json)).toList();
-    return ArticlesModelList(articles: articles);
-  }
-
-  List<Map<String, dynamic>> toJson() {
-    return articles.map((article) => article.toJson()).toList();
-  }
-
-  AllArticlesEntity toAllArticlesEntity() {
-    List<ArticlesEntity> articlesEntities =
-        articles.map((articleModel) => articleModel.toEntity()).toList();
-    return AllArticlesEntity(result: articlesEntities);
+  CategoryEntity toEntity() {
+    return CategoryEntity(name: name ?? '');
   }
 }

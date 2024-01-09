@@ -8,7 +8,7 @@ final class AllQuizesInitial extends AllQuizesState {}
 final class AllQuizesLoading extends AllQuizesState {}
 
 final class AllQuizesLoaded extends AllQuizesState {
-  final AllQuizesEntity model;
+  final QuizesEntity model;
 
   AllQuizesLoaded({required this.model});
 }

@@ -6,7 +6,7 @@ sealed class UserQuizeState {}
 final class UserQuizeInitial extends UserQuizeState {}
 
 final class UserQuizeLoaded extends UserQuizeState {
-  final UserQuizeEntity model;
+  final UserQuizEntityList model;
 
   UserQuizeLoaded({required this.model});
 }

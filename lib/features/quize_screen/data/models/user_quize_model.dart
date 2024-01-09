@@ -1,5 +1,26 @@
 import 'package:neobis_flutter_chapter9/features/quize_screen/domain/entity/user_quize_entity.dart';
 
+class UserQuizeModelList {
+  List<UserQuizeModel>? modelsList;
+
+  UserQuizeModelList({this.modelsList});
+
+  factory UserQuizeModelList.fromJson(List<dynamic> parsedJson) {
+    List<UserQuizeModel> models =
+        parsedJson.map((i) => UserQuizeModel.fromJson(i)).toList();
+    return UserQuizeModelList(modelsList: models);
+  }
+
+  List<Map<String, dynamic>> toJson() {
+    return modelsList!.map((model) => model.toJson()).toList();
+  }
+
+  UserQuizEntityList toEntity() {
+    return UserQuizEntityList(
+        entityList: modelsList!.map((model) => model.toEntity()).toList());
+  }
+}
+
 class UserQuizeModel {
   Quiz? quiz;
   String? title;
@@ -29,10 +50,11 @@ class UserQuizeModel {
     }
     return data;
   }
-   UserQuizeEntity toEntity() {
+
+  UserQuizeEntity toEntity() {
     return UserQuizeEntity(
       quiz: quiz?.toEntity(),
-      title: title,
+      title: title ?? '',
       answer: answer?.map((a) => a.toEntity()).toList(),
     );
   }
@@ -72,7 +94,8 @@ class Quiz {
     }
     return data;
   }
-   QuizEntity toEntity() {
+
+  QuizEntity toEntity() {
     return QuizEntity(
       id: id,
       title: title,
@@ -97,8 +120,9 @@ class Category {
     data['name'] = name;
     return data;
   }
-    CategoryEntity toEntity() {
-    return CategoryEntity(name: name);
+
+  CategoryEntity toEntity() {
+    return CategoryEntity(name: name ?? '');
   }
 }
 
@@ -122,11 +146,12 @@ class Answer {
     data['is_right'] = isRight;
     return data;
   }
+
   AnswerEntity toEntity() {
     return AnswerEntity(
-      id: id,
-      answerText: answerText,
-      isRight: isRight,
+      id: id ?? 0,
+      answerText: answerText ?? '',
+      isRight: isRight ?? false,
     );
   }
 }

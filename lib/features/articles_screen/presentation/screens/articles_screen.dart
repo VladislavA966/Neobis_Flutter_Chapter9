@@ -112,19 +112,19 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
   Widget _buildArticlesListView(ArticlesLoaded state) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: state.model.result.length,
+      itemCount: state.model.results.length,
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 16),
           child: ArticleContainer(
             color: getRandomColor(),
-            title: state.model.result[index].title,
-            timeToRead: state.model.result[index].timeToRead,
+            title: state.model.results[index].title,
+            timeToRead: state.model.results[index].timeToRead,
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    ArticleInfoScreen(id: state.model.result[index].id),
+                    ArticleInfoScreen(id: state.model.results[index].id),
               ),
             ),
           ),

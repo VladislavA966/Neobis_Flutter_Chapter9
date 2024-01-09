@@ -3,11 +3,10 @@ import 'package:neobis_flutter_chapter9/core/recources/app_colors/app_colors.dar
 import 'package:neobis_flutter_chapter9/core/recources/app_fonts.dart/app_fonts.dart';
 
 class QuizElevatedButton extends StatelessWidget {
+  final String title;
   final Function() onPressed;
-  const QuizElevatedButton({
-    super.key,
-    required this.onPressed,
-  });
+  const QuizElevatedButton(
+      {super.key, required this.onPressed, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class QuizElevatedButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: Text(
-          'Начать квиз',
+          title,
           style: AppFonts.s16w700.copyWith(
             color: Colors.white,
           ),

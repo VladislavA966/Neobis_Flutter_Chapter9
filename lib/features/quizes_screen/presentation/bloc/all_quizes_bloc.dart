@@ -17,6 +17,9 @@ class AllQuizesBloc extends Bloc<AllQuizesEvent, AllQuizesState> {
         final model = await useCase.getAllQuizesUseCase();
         emit(AllQuizesLoaded(model: model));
       } catch (e) {
+        print(
+          e.toString(),
+        );
         emit(
           AllQuizesError(
             errorText: e.toString(),

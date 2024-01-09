@@ -5,7 +5,7 @@ class QuizesUseCase {
   final QuizesRepo repo;
 
   QuizesUseCase({required this.repo});
-  Future<AllQuizesEntity> getAllQuizesUseCase() async {
+  Future<QuizesEntity> getAllQuizesUseCase() async {
     return await repo.getAllQuizesrepo();
   }
 }

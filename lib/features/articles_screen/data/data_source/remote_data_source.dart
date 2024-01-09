@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:neobis_flutter_chapter9/features/articles_screen/data/models/articles_model.dart';
+import 'package:neobis_flutter_chapter9/features/articles_screen/data/models/article_model_new.dart';
+import 'package:neobis_flutter_chapter9/features/concrete_article_screen/data/models/concrete_article_model.dart';
 
 abstract class GetAllArticlesRemoteDataSource {
-  Future<ArticlesModelList> getAllArticlesRemoteDataSource();
-  Future<ArticlesModel> getConcreteArticle(int id);
+  Future<ArticlesModel> getAllArticlesRemoteDataSource();
+  Future<ConcreteArticleModel> getConcreteArticle(int id);
 }
 
 class GetAllArticlesRemoteDataSourceImpl
@@ -12,9 +13,9 @@ class GetAllArticlesRemoteDataSourceImpl
 
   GetAllArticlesRemoteDataSourceImpl({required this.dio});
   @override
-  Future<ArticlesModelList> getAllArticlesRemoteDataSource() async {
+  Future<ArticlesModel> getAllArticlesRemoteDataSource() async {
     final responce = await dio.get('/articles/');
-    final model = ArticlesModelList.fromJson(responce.data);
+    final model = ArticlesModel.fromJson(responce.data);
     if (responce.statusCode == 200) {
       return model;
     } else {
@@ -23,9 +24,9 @@ class GetAllArticlesRemoteDataSourceImpl
   }
 
   @override
-  Future<ArticlesModel> getConcreteArticle(int id) async {
+  Future<ConcreteArticleModel> getConcreteArticle(int id) async {
     final responce = await dio.get('/articles/$id');
-    final model = ArticlesModel.fromJson(responce.data);
+    final model = ConcreteArticleModel.fromJson(responce.data);
     if (responce.statusCode == 200) {
       return model;
     } else {

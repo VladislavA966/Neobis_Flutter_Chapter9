@@ -1,30 +1,37 @@
-class AllArticlesEntity {
-  final List<ArticlesEntity> result;
+class ArticlesEntity {
+  int count;
+  String next;
+  String previous;
+  List<ResultsEntity> results;
 
-  AllArticlesEntity({required this.result});
+  ArticlesEntity(
+      {required this.count,
+      required this.next,
+      required this.previous,
+     required this.results});
 }
 
-class ArticlesEntity {
+class ResultsEntity {
   final int id;
   final String title;
   final String content;
   final bool isActive;
   final int timeToRead;
   final String articleCover;
-  final Category? category;
+  final CategoryEntity category;
 
-  ArticlesEntity(
+  ResultsEntity(
       {required this.id,
       required this.title,
       required this.content,
       required this.isActive,
       required this.timeToRead,
       required this.articleCover,
-      this.category});
+      required this.category});
 }
 
-class Category {
+class CategoryEntity {
   final String name;
 
-  Category({required this.name});
+  CategoryEntity({required this.name});
 }

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_colors/app_colors.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_fonts.dart/app_fonts.dart';
-import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/screens/articles_screen.dart';
-import 'package:neobis_flutter_chapter9/features/concrete_article_screen/bloc/concrete_article_bloc.dart';
+import 'package:neobis_flutter_chapter9/features/concrete_article_screen/presentation/bloc/concrete_article_bloc.dart';
 
 class ArticleInfoScreen extends StatefulWidget {
   final int id;
@@ -34,13 +33,7 @@ class _ArticleInfoScreenState extends State<ArticleInfoScreen> {
   }
 
   AppBar _buildAppBar() {
-    return AppBar(
-      leading: IconButton(
-        onPressed: () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const ArticlesScreen())),
-        icon: const Icon(Icons.arrow_back),
-      ),
-    );
+    return AppBar();
   }
 
   Widget _buildArticleContent() {
@@ -62,23 +55,29 @@ class _ArticleInfoScreenState extends State<ArticleInfoScreen> {
             softWrap: true,
             style: AppFonts.s24w800.copyWith(color: AppColors.black)),
         const SizedBox(height: 16),
-        _buildArticleMetaData(state.model.timeToRead),
+        _buildArticleMetaData(state.model.timeToRead, 'Какой то хэштег'),
         const SizedBox(height: 17),
         Expanded(
-            child: SingleChildScrollView(
-                child: Text(state.model.content,
-                    style: AppFonts.s16w500.copyWith(color: AppColors.black)))),
+          child: SingleChildScrollView(
+            child: Text(
+              state.model.content,
+              style: AppFonts.s16w500.copyWith(
+                color: AppColors.black,
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
 
-  Widget _buildArticleMetaData(int timeToRead) {
+  Widget _buildArticleMetaData(int timeToRead, String type) {
     return RichText(
       textAlign: TextAlign.start,
       text: TextSpan(
         children: [
           TextSpan(
-              text: '#История ',
+              text: '#$type',
               style: AppFonts.s12w600.copyWith(color: AppColors.black)),
           const WidgetSpan(
             child: Padding(

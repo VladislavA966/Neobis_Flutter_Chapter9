@@ -8,7 +8,7 @@ final class ConcreteArticleInitial extends ConcreteArticleState {}
 final class ConcreteArticleLoading extends ConcreteArticleState {}
 
 final class ConcreteArticleLoaded extends ConcreteArticleState {
-  final ArticlesEntity model;
+  final ConcreteArticleEntity model;
 
   ConcreteArticleLoaded({required this.model});
 }

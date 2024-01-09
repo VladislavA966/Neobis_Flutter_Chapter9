@@ -8,17 +8,16 @@ class UserQuizeRepoImpl implements UserQuizeRepo {
   UserQuizeRepoImpl({required this.remoteData});
 
   @override
-  Future<UserQuizeEntity> getUserQuizeRepo(int id) async {
-    final userQuizeModel = await remoteData.getUserQuizeRemote(id);
+  Future<UserQuizEntityList> getUserQuizeRepo(int id) async {
+    final dataSourceList = await remoteData.getUserQuizeRemote(id);
 
-    final quizesListEntity = userQuizeModel.answer
-        ?.map((answersModel) => answersModel.toEntity())
-        .toList();
+    if (dataSourceList.modelsList != null) {
+      final entitiesList =
+          dataSourceList.modelsList!.map((model) => model.toEntity()).toList();
 
-    return UserQuizeEntity(
-      quiz: userQuizeModel.quiz?.toEntity(),
-      title: userQuizeModel.title,
-      answer: quizesListEntity,
-    );
+      return UserQuizEntityList(entityList: entitiesList);
+    } else {
+      throw Exception("Ошибка получения данных: список моделей пуст");
+    }
   }
 }

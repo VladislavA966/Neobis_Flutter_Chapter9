@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +19,25 @@ class QuizesScreen extends StatefulWidget {
 }
 
 class _QuizesScreenState extends State<QuizesScreen> {
+  List<Color> myColors = [
+    AppColors.aqua,
+    AppColors.blush,
+    AppColors.burgundy,
+    AppColors.darkRed,
+    AppColors.lavender,
+    AppColors.lightBlue,
+    AppColors.lightGreen,
+    AppColors.lightPink,
+    AppColors.lime,
+    AppColors.orange,
+    AppColors.paleGreen,
+    AppColors.peach
+  ];
+  Color getRandomColor() {
+    Random random = Random();
+    return myColors[random.nextInt(myColors.length)];
+  }
+
   @override
   void initState() {
     BlocProvider.of<AllQuizesBloc>(context).add(
@@ -60,6 +81,12 @@ class _QuizesScreenState extends State<QuizesScreen> {
               _buildStartQuizButton(state),
             ],
           );
+        } else if (state is AllQuizesError) {
+          return Center(
+            child: Text(
+              state.errorText,
+            ),
+          );
         }
         return const SizedBox();
       },
@@ -75,8 +102,9 @@ class _QuizesScreenState extends State<QuizesScreen> {
           enableInfiniteScroll: false,
           autoPlay: false,
         ),
-        items: state.model.quizes
+        items: state.model.results
             .map((item) => QuizContainer(
+                  color: getRandomColor(),
                   image: item.quizCover,
                   title: item.title,
                   totalQuestions: item.totalQuestions.toString(),
@@ -90,12 +118,13 @@ class _QuizesScreenState extends State<QuizesScreen> {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: QuizElevatedButton(
+        title: 'Начать квиз',
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  HomeQuizeScreen(id: state.model.quizes.first.id),
+                  HomeQuizeScreen(id: state.model.results.first.id),
             ),
           );
         },

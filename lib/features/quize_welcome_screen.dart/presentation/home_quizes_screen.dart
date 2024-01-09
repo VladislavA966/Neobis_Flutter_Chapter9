@@ -37,27 +37,24 @@ class _HomeQuizeScreenState extends State<HomeQuizeScreen> {
                   child: CircularProgressIndicator(),
                 );
               } else if (state is ConcreteQuizeLoaded) {
-                return SingleChildScrollView(
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 11),
-                        _buildQuizTitle(state),
-                        _buildQuizImage(state),
-                        const SizedBox(height: 32),
-                        _buildQuizDescription(state),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        _buildStartQuizButton(),
-                      ],
-                    ),
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 11),
+                      _buildQuizTitle(state),
+                      _buildQuizImage(state),
+                      const SizedBox(height: 32),
+                      _buildQuizDescription(state),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      _buildStartQuizButton(),
+                    ],
                   ),
                 );
               } else if (state is ConcreteQuizeError) {
-                print(state.errorText);
                 return Center(child: Text(state.errorText));
               }
 
@@ -82,7 +79,11 @@ class _HomeQuizeScreenState extends State<HomeQuizeScreen> {
   }
 
   Widget _buildQuizImage(ConcreteQuizeLoaded state) {
-    return Image.network(state.model.result.first.quizCover);
+    return Image.network(
+      state.model.result.first.quizCover,
+      height: 300,
+      width: 300,
+    );
   }
 
   Widget _buildQuizDescription(ConcreteQuizeLoaded state) {
@@ -94,6 +95,16 @@ class _HomeQuizeScreenState extends State<HomeQuizeScreen> {
   }
 
   Widget _buildStartQuizButton() {
-    return QuizElevatedButton(onPressed: () {});
+    return QuizElevatedButton(
+      title: 'Начать квиз',
+      onPressed: () {
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => const QuizeScreen(),
+        //   ),
+        // );
+      },
+    );
   }
 }

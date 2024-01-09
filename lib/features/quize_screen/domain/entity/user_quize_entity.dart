@@ -1,9 +1,15 @@
+class UserQuizEntityList {
+  final List<UserQuizeEntity> entityList;
+
+  UserQuizEntityList({required this.entityList});
+}
+
 class UserQuizeEntity {
   final QuizEntity? quiz;
-  final String? title;
+  final String title;
   final List<AnswerEntity>? answer;
 
-  UserQuizeEntity({this.quiz, this.title, this.answer});
+  UserQuizeEntity({required this.quiz, required this.title, this.answer});
 }
 
 class QuizEntity {
@@ -22,15 +28,16 @@ class QuizEntity {
 }
 
 class CategoryEntity {
-  final String? name;
+  final String name;
 
-  CategoryEntity({this.name});
+  CategoryEntity({required this.name});
 }
 
 class AnswerEntity {
-  final int? id;
-  final String? answerText;
-  final bool? isRight;
+  final int id;
+  final String answerText;
+  final bool isRight;
 
-  AnswerEntity({this.id, this.answerText, this.isRight});
+  AnswerEntity(
+      {required this.id, required this.answerText, required this.isRight});
 }
