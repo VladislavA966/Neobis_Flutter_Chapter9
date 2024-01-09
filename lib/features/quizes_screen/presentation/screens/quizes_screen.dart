@@ -19,6 +19,7 @@ class QuizesScreen extends StatefulWidget {
 }
 
 class _QuizesScreenState extends State<QuizesScreen> {
+  int _currentQuizIndex = 0;
   List<Color> myColors = [
     AppColors.aqua,
     AppColors.blush,
@@ -101,6 +102,11 @@ class _QuizesScreenState extends State<QuizesScreen> {
           enlargeCenterPage: true,
           enableInfiniteScroll: false,
           autoPlay: false,
+          onPageChanged: (index, reason) {
+            setState(() {
+              _currentQuizIndex = index; 
+            });
+          },
         ),
         items: state.model.results
             .map((item) => QuizContainer(
@@ -124,7 +130,7 @@ class _QuizesScreenState extends State<QuizesScreen> {
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  HomeQuizeScreen(id: state.model.results.first.id),
+                  HomeQuizeScreen(id: state.model.results[_currentQuizIndex].id),
             ),
           );
         },

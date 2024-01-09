@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_colors/app_colors.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_fonts.dart/app_fonts.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_images/app_images.dart';
+import 'package:neobis_flutter_chapter9/features/quize_screen/presentation/screens/quize_screen.dart';
 import 'package:neobis_flutter_chapter9/features/quize_welcome_screen.dart/presentation/bloc/concrete_quize_bloc.dart';
 import 'package:neobis_flutter_chapter9/features/quizes_screen/presentation/widgets/quize_button.dart';
 
@@ -50,7 +51,7 @@ class _HomeQuizeScreenState extends State<HomeQuizeScreen> {
                       const SizedBox(
                         height: 15,
                       ),
-                      _buildStartQuizButton(),
+                      _buildStartQuizButton(state),
                     ],
                   ),
                 );
@@ -71,7 +72,7 @@ class _HomeQuizeScreenState extends State<HomeQuizeScreen> {
       children: [
         Image.asset(AppImages.bgTitleImage),
         Text(
-          state.model.result.first.title,
+          state.model.title,
           style: AppFonts.s32w700.copyWith(color: AppColors.black),
         ),
       ],
@@ -80,7 +81,7 @@ class _HomeQuizeScreenState extends State<HomeQuizeScreen> {
 
   Widget _buildQuizImage(ConcreteQuizeLoaded state) {
     return Image.network(
-      state.model.result.first.quizCover,
+      state.model.quizCover,
       height: 300,
       width: 300,
     );
@@ -88,22 +89,22 @@ class _HomeQuizeScreenState extends State<HomeQuizeScreen> {
 
   Widget _buildQuizDescription(ConcreteQuizeLoaded state) {
     return Text(
-      state.model.result.first.welcomePage,
+      state.model.welcomePage,
       textAlign: TextAlign.center,
       style: AppFonts.s16w500.copyWith(color: AppColors.black),
     );
   }
 
-  Widget _buildStartQuizButton() {
+  Widget _buildStartQuizButton(ConcreteQuizeLoaded state) {
     return QuizElevatedButton(
       title: 'Начать квиз',
       onPressed: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => const QuizeScreen(),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => QuizeScreen(id: state.model.id),
+          ),
+        );
       },
     );
   }

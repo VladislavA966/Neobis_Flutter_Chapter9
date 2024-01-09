@@ -8,8 +8,10 @@ import 'package:neobis_flutter_chapter9/features/quize_screen/presentation/scree
 import 'package:neobis_flutter_chapter9/features/quizes_screen/presentation/widgets/quize_button.dart';
 
 class QuizeScreen extends StatefulWidget {
+  final int id;
   const QuizeScreen({
     super.key,
+    required this.id,
   });
 
   @override
@@ -28,7 +30,7 @@ class _QuizeScreenState extends State<QuizeScreen> {
     super.initState();
     BlocProvider.of<UserQuizeBloc>(context).add(
       GetAllAnswersEvent(
-        id: 1,
+        id: widget.id,
       ),
     );
   }

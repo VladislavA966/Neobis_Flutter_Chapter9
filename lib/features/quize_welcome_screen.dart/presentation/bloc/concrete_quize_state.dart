@@ -8,7 +8,7 @@ final class ConcreteQuizeInitial extends ConcreteQuizeState {}
 final class ConcreteQuizeLoading extends ConcreteQuizeState {}
 
 final class ConcreteQuizeLoaded extends ConcreteQuizeState {
-  final ConcreteQuizesList model;
+  final ConcreteQuizEntity model;
 
   ConcreteQuizeLoaded({required this.model});
 }

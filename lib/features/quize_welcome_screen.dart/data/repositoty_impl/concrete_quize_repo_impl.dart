@@ -8,9 +8,12 @@ class ConcreteQuizeRepoImpl implements ConcreteQuizRepo {
   ConcreteQuizeRepoImpl({required this.remote});
 
   @override
-  Future<ConcreteQuizesList> getConcreteQuiz(int id) async {
+  Future<ConcreteQuizEntity> getConcreteQuiz(int id) async {
     final remoteData = await remote.getConcreteQuizRemote(id);
-    return ConcreteQuizesList(
-        result: remoteData.results.map((model) => model.toEntity()).toList());
+    return ConcreteQuizEntity(
+        id: remoteData.id ?? 0,
+        title: remoteData.title ?? '',
+        quizCover: remoteData.quizCover ?? '',
+        welcomePage: remoteData.welcomePage ?? '');
   }
 }

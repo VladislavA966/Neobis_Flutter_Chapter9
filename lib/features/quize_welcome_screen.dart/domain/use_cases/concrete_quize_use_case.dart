@@ -6,7 +6,7 @@ class ConcreteQuizeUseCase {
 
   ConcreteQuizeUseCase({required this.repo});
 
-  Future<ConcreteQuizesList> getConcreteQuizUseCase(int id) async {
+  Future<ConcreteQuizEntity> getConcreteQuizUseCase(int id) async {
     return await repo.getConcreteQuiz(id);
   }
 }
