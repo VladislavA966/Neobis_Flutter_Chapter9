@@ -5,16 +5,15 @@ class ConcreteArticleEntity {
   final bool isActive;
   final int timeToRead;
   final String articleCover;
-  final Category? category;
 
-  ConcreteArticleEntity(
-      {required this.id,
-      required this.title,
-      required this.content,
-      required this.isActive,
-      required this.timeToRead,
-      required this.articleCover,
-      this.category});
+  ConcreteArticleEntity({
+    required this.id,
+    required this.title,
+    required this.content,
+    required this.isActive,
+    required this.timeToRead,
+    required this.articleCover,
+  });
 }
 
 class Category {

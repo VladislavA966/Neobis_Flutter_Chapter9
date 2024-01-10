@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_colors/app_colors.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_fonts.dart/app_fonts.dart';
-import 'package:neobis_flutter_chapter9/core/recources/app_images/app_images.dart';
 
 class ArticleContainer extends StatelessWidget {
   final Function() onTap;
   final String title;
   final int timeToRead;
   final Color color;
+  final String type;
+  final String image;
 
-  const ArticleContainer({
-    super.key,
-    required this.onTap,
-    required this.title,
-    required this.timeToRead,
-    required this.color,
-  });
+  const ArticleContainer(
+      {super.key,
+      required this.onTap,
+      required this.title,
+      required this.timeToRead,
+      required this.color,
+      required this.type, required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class ArticleContainer extends StatelessWidget {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: '#История ',
+                            text: '#$type ',
                             style: AppFonts.s12w600.copyWith(
                               color: AppColors.black,
                             ),
@@ -77,7 +78,7 @@ class ArticleContainer extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Image.asset(AppImages.napoleonImage),
+              Image.network(image, height: 120, width: 120,),
             ],
           ),
         ),

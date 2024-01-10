@@ -32,6 +32,8 @@ class GetAllArticlesRepositoryImpl implements GetAllArticlesRepo {
         content: dataSourceArticle.content ?? '',
         isActive: dataSourceArticle.isActive ?? false,
         timeToRead: dataSourceArticle.timeToRead ?? 0,
-        articleCover: dataSourceArticle.articleCover ?? '');
+        articleCover: dataSourceArticle.articleCover ?? '',
+        
+        );
   }
 }

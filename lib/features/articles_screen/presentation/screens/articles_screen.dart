@@ -117,9 +117,11 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
         return Padding(
           padding: const EdgeInsets.only(bottom: 16),
           child: ArticleContainer(
+            type: state.model.results[index].category.name,
             color: getRandomColor(),
             title: state.model.results[index].title,
             timeToRead: state.model.results[index].timeToRead,
+            image: state.model.results[index].articleCover,
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
