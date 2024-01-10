@@ -13,7 +13,8 @@ class QuizCard extends StatelessWidget {
       required this.image,
       required this.title,
       required this.totalQuestions,
-      required this.onTap, required this.color});
+      required this.onTap,
+      required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -24,29 +25,32 @@ class QuizCard extends StatelessWidget {
           color: color,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Column(
-          children: [
-            Image.network(
-              image,
-              height: 150,
-              width: 150,
-            ),
-            const SizedBox(height: 28),
-            Text(
-              title,
-              softWrap: true,
-              overflow: TextOverflow.ellipsis,
-              style: AppFonts.s24w800.copyWith(
-                color: AppColors.black,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 15),
+          child: Column(
+            children: [
+              Image.network(
+                image,
+                height: 150,
+                width: 150,
               ),
-            ),
-            Text(
-              '$totalQuestions вопросов',
-              style: AppFonts.s12w600.copyWith(
-                color: AppColors.black,
+              const SizedBox(height: 20),
+              Text(
+                title,
+                softWrap: true,
+                overflow: TextOverflow.ellipsis,
+                style: AppFonts.s24w800.copyWith(
+                  color: AppColors.black,
+                ),
               ),
-            ),
-          ],
+              Text(
+                '$totalQuestions вопросов',
+                style: AppFonts.s12w600.copyWith(
+                  color: AppColors.black,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -28,39 +28,41 @@ class _HomeQuizeScreenState extends State<HomeQuizeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Center(
-          child: BlocBuilder<ConcreteQuizeBloc, ConcreteQuizeState>(
-            builder: (context, state) {
-              if (state is ConcreteQuizeLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state is ConcreteQuizeLoaded) {
-                return SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 11),
-                      _buildQuizTitle(state),
-                      _buildQuizImage(state),
-                      const SizedBox(height: 32),
-                      _buildQuizDescription(state),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      _buildStartQuizButton(state),
-                    ],
-                  ),
-                );
-              } else if (state is ConcreteQuizeError) {
-                return Center(child: Text(state.errorText));
-              }
-
-              return const SizedBox();
-            },
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Center(
+            child: BlocBuilder<ConcreteQuizeBloc, ConcreteQuizeState>(
+              builder: (context, state) {
+                if (state is ConcreteQuizeLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is ConcreteQuizeLoaded) {
+                  return SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 11),
+                        _buildQuizTitle(state),
+                        _buildQuizImage(state),
+                        const SizedBox(height: 32),
+                        _buildQuizDescription(state),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        _buildStartQuizButton(state),
+                      ],
+                    ),
+                  );
+                } else if (state is ConcreteQuizeError) {
+                  return Center(child: Text(state.errorText));
+                }
+        
+                return const SizedBox();
+              },
+            ),
           ),
         ),
       ),
@@ -82,8 +84,8 @@ class _HomeQuizeScreenState extends State<HomeQuizeScreen> {
   Widget _buildQuizImage(ConcreteQuizeLoaded state) {
     return Image.network(
       state.model.quizCover,
-      height: 300,
-      width: 300,
+      height: 250,
+      width: 250,
     );
   }
 

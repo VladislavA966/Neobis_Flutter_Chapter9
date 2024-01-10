@@ -14,7 +14,8 @@ class ArticlesContainer extends StatelessWidget {
     required this.onTap,
     required this.title,
     required this.image,
-    required this.categoty, required this.color,
+    required this.categoty,
+    required this.color,
   });
 
   @override
@@ -42,6 +43,7 @@ class ArticlesContainer extends StatelessWidget {
                         color: AppColors.black,
                       ),
                     ),
+                    const Spacer(),
                     Text(
                       '#$categoty',
                       style: AppFonts.s12w800.copyWith(
@@ -58,8 +60,8 @@ class ArticlesContainer extends StatelessWidget {
               child: Image.network(
                 image,
                 fit: BoxFit.cover,
-                width: 150,
-                height: 150,
+                width: 130,
+                height: 130,
               ),
             ),
           ],
