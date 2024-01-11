@@ -9,8 +9,8 @@ class GetAllArticlesRepositoryImpl implements GetAllArticlesRepo {
   GetAllArticlesRepositoryImpl({required this.dataSource});
 
   @override
-  Future<ArticlesEntity> getAllArticles() async {
-    final dataSourceList = await dataSource.getAllArticlesRemoteDataSource();
+  Future<ArticlesEntity> getAllArticles(String search, List<int> categories) async {
+    final dataSourceList = await dataSource.getAllArticlesRemoteDataSource(search, categories);
 
     final articlesEntities = dataSourceList.results!
         .map((articleModel) => articleModel.toEntity())

@@ -21,6 +21,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final controller = TextEditingController();
   List<Color> myColors = [
     AppColors.aqua,
     AppColors.blush,
@@ -80,7 +81,7 @@ class _MainScreenState extends State<MainScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const ArticlesScreen(),
+            builder: (context) =>  ArticlesScreen(),
           ),
         );
       },

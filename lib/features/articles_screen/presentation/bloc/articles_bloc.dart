@@ -18,13 +18,12 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
       (event, emit) async {
         emit(ArticlesLoading());
         try {
-          final model = await useCase.getArticles();
+          final model = await useCase.getArticles(event.search ?? '', event.categories ?? []);
           emit(
             ArticlesLoaded(model: model),
           );
         } catch (e) {
-          print(e.toString());
-          emit(
+          print(e.toString());      emit(
             ArticlesError(
               errorText: e.toString(),
             ),

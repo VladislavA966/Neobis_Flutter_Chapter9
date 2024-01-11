@@ -13,17 +13,22 @@ import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/wi
 import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/widgets/filter_button.dart';
 
 class ArticlesScreen extends StatefulWidget {
-  const ArticlesScreen({super.key});
+  List<int> categories = [];
+  ArticlesScreen({super.key, this.categories = const []});
 
   @override
   State<ArticlesScreen> createState() => _ArticlesScreenState();
 }
 
 class _ArticlesScreenState extends State<ArticlesScreen> {
+  final controller = TextEditingController();
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<ArticlesBloc>(context).add(GetAllArticlesEvent());
+    BlocProvider.of<ArticlesBloc>(context).add(
+      GetAllArticlesEvent(
+          search: controller.text, categories: widget.categories),
+    );
   }
 
   List<Color> myColors = [
@@ -78,15 +83,36 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
   Widget _buildSearchAndFilterRow() {
     return Row(
       children: [
-        const Expanded(child: FindArticlesTextField()),
+        Expanded(
+            child: FindArticlesTextField(
+          onChanged: (value) {
+            setState(() {});
+            controller.text = value;
+            BlocProvider.of<ArticlesBloc>(context).add(
+              GetAllArticlesEvent(search: controller.text),
+            );
+          },
+          controller: controller,
+        )),
         const SizedBox(width: 16),
         FilterButton(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ArticlesFilterScreen(),
-            ),
-          ),
+          onTap: () async {
+            final selectedCategories = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ArticlesFilterScreen(),
+              ),
+            );
+            if (selectedCategories != null) {
+              setState(() {
+                widget.categories = selectedCategories;
+              });
+              BlocProvider.of<ArticlesBloc>(context).add(
+                GetAllArticlesEvent(
+                    search: controller.text, categories: widget.categories),
+              );
+            }
+          },
         ),
       ],
     );

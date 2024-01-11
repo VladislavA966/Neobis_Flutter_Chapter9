@@ -6,8 +6,8 @@ class GetAllArticlesUseCase {
   final GetAllArticlesRepo repo;
 
   GetAllArticlesUseCase({required this.repo});
-  Future<ArticlesEntity> getArticles() async {
-    return repo.getAllArticles();
+  Future<ArticlesEntity> getArticles(String search, List<int> queryParameters) async {
+    return repo.getAllArticles(search, queryParameters);
   }
 
   Future<ConcreteArticleEntity> getConcreteArticle(int id) async {
