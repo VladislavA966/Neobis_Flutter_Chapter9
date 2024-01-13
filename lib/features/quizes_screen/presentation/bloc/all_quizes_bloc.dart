@@ -9,7 +9,11 @@ part 'all_quizes_state.dart';
 class AllQuizesBloc extends Bloc<AllQuizesEvent, AllQuizesState> {
   final QuizesUseCase useCase;
   AllQuizesBloc(this.useCase) : super(AllQuizesInitial()) {
-    on<GetAllQuizesEvent>((event, emit) async {
+    _onGetAllQuizesEvent();
+  }
+
+  void _onGetAllQuizesEvent() {
+     on<GetAllQuizesEvent>((event, emit) async {
       emit(
         AllQuizesLoading(),
       );
@@ -17,9 +21,7 @@ class AllQuizesBloc extends Bloc<AllQuizesEvent, AllQuizesState> {
         final model = await useCase.getAllQuizesUseCase();
         emit(AllQuizesLoaded(model: model));
       } catch (e) {
-        print(
-          e.toString(),
-        );
+        
         emit(
           AllQuizesError(
             errorText: e.toString(),

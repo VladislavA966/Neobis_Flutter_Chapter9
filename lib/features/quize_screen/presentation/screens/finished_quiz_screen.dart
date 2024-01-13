@@ -10,6 +10,51 @@ class FiinishedQuizScreen extends StatelessWidget {
   const FiinishedQuizScreen(
       {super.key, required this.totalScore, required this.totalQuestions});
 
+  Widget _buildHeaderText(String text) {
+    return Text(
+      text,
+      style: AppFonts.s32w700.copyWith(color: AppColors.black),
+    );
+  }
+
+  Widget _buildResultsText(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          'Вы ответили правильно на',
+          style: AppFonts.s18w800.copyWith(color: AppColors.black),
+        ),
+        Text(
+          '$totalScore из $totalQuestions вопросов',
+          style: AppFonts.s18w800.copyWith(color: Colors.green),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildInfoText() {
+    return Text(
+      'У вас всегда есть возможность пройти квиз\nзаново, чтобы еще раз проверить свои знания!',
+      textAlign: TextAlign.center,
+      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)
+          .copyWith(color: AppColors.black),
+    );
+  }
+
+  Widget _buildReturnButton(BuildContext context) {
+    return QuizElevatedButton(
+      title: 'Вернуться на главную',
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MainScreen(),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,50 +64,16 @@ class FiinishedQuizScreen extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                const SizedBox(
-                  height: 60,
-                ),
-                Text(
-                  'Поздравляем!',
-                  style: AppFonts.s32w700.copyWith(color: AppColors.black),
-                ),
+                const SizedBox(height: 60),
+                _buildHeaderText('Поздравляем!'),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.25,
                 ),
-                Text(
-                  'Вы ответили правильно на',
-                  style: AppFonts.s18w800.copyWith(color: AppColors.black),
-                ),
-                Text(
-                  '$totalScore из $totalQuestions вопросов',
-                  style: AppFonts.s18w800.copyWith(
-                    color: Colors.green,
-                  ),
-                ),
-                const SizedBox(
-                  height: 60,
-                ),
-                Text(
-                  'У вас всегда есть возможность пройти квиз\nзаново, чтобы еще раз проверить свои знания!',
-                  textAlign: TextAlign.center,
-                  style:
-                      const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)
-                          .copyWith(
-                    color: AppColors.black,
-                  ),
-                ),
+                _buildResultsText(context),
+                const SizedBox(height: 60),
+                _buildInfoText(),
                 const Spacer(),
-                QuizElevatedButton(
-                  title: 'Вернуться на главную',
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MainScreen(),
-                      ),
-                    );
-                  },
-                ),
+                _buildReturnButton(context),
               ],
             ),
           ),

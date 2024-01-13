@@ -6,7 +6,7 @@ import 'package:neobis_flutter_chapter9/core/recources/app_colors/app_colors.dar
 import 'package:neobis_flutter_chapter9/core/recources/app_fonts.dart/app_fonts.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_images/app_images.dart';
 import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/bloc/articles_bloc.dart';
-import 'package:neobis_flutter_chapter9/features/concrete_article_screen/article_info_screen.dart';
+import 'package:neobis_flutter_chapter9/features/concrete_article_screen/presentation/article_info_screen.dart';
 import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/screens/articles_filter_screen.dart';
 import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/widgets/article_container.dart';
 import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/widgets/common_text_field.dart';
@@ -50,6 +50,7 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
     return myColors[random.nextInt(myColors.length)];
   }
 
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,9 +108,9 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
               setState(() {
                 widget.categories = selectedCategories;
               });
+              // ignore: use_build_context_synchronously
               BlocProvider.of<ArticlesBloc>(context).add(
-                GetAllArticlesEvent(
-                    search: controller.text, categories: widget.categories),
+                GetAllArticlesEvent(categories: widget.categories),
               );
             }
           },

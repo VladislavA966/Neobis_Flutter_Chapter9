@@ -10,21 +10,19 @@ class UserQuizeBloc extends Bloc<UserQuizeEvent, UserQuizeState> {
   final UserQuizeUseCase useCase;
   UserQuizEntityList? quizData;
   int currentQuestionIndex = 0;
+
   UserQuizeBloc({required this.useCase}) : super(UserQuizeInitial()) {
-    on<GetAllAnswersEvent>(_onLoadQuiz);
+    on<GetAllAnswersEvent>(_onGetAllAnswersEvent);
   }
-  void _onLoadQuiz(
+
+  Future<void> _onGetAllAnswersEvent(
       GetAllAnswersEvent event, Emitter<UserQuizeState> emit) async {
     emit(UserQuizeLoading());
     try {
       final model = await useCase.call(event.id);
-      emit(UserQuizeLoaded(model: model),);
+      emit(UserQuizeLoaded(model: model));
     } catch (e) {
-      emit(
-        UserQuizeError(
-          errorText: e.toString(),
-        ),
-      );
+      emit(UserQuizeError(errorText: e.toString()));
     }
   }
 }

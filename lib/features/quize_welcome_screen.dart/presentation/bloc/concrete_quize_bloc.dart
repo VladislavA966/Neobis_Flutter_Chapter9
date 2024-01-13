@@ -9,7 +9,11 @@ part 'concrete_quize_state.dart';
 class ConcreteQuizeBloc extends Bloc<ConcreteQuizeEvent, ConcreteQuizeState> {
   final ConcreteQuizeUseCase useCase;
   ConcreteQuizeBloc(this.useCase) : super(ConcreteQuizeInitial()) {
-    on<GetConcreteQuizeEvent>((event, emit) async {
+    onGetConcreteQuizeEvent();
+  }
+
+  void onGetConcreteQuizeEvent() {
+      on<GetConcreteQuizeEvent>((event, emit) async {
       emit(
         ConcreteQuizeLoading(),
       );

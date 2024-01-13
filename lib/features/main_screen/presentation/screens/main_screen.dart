@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neobis_flutter_chapter9/core/recources/app_colors/app_colors.dart';
 import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/bloc/articles_bloc.dart';
 import 'package:neobis_flutter_chapter9/features/articles_screen/presentation/screens/articles_screen.dart';
-import 'package:neobis_flutter_chapter9/features/concrete_article_screen/article_info_screen.dart';
+import 'package:neobis_flutter_chapter9/features/concrete_article_screen/presentation/article_info_screen.dart';
 import 'package:neobis_flutter_chapter9/features/main_screen/presentation/widgets/article_container.dart';
 import 'package:neobis_flutter_chapter9/features/main_screen/presentation/widgets/button_row.dart';
 import 'package:neobis_flutter_chapter9/features/main_screen/presentation/widgets/quiz_card.dart';
@@ -56,6 +56,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        bottom: false,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
